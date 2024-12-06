@@ -220,18 +220,20 @@ local function entry(_, _)
 		local hovered_url, is_dir, launch = read_input_todo(current_num, cursor, offset, first_key_of_lable)
 		if is_dir and launch then
 			if is_dir == "false" then
+				toggle_ui()
+				clear_state_str()
 				ya.manager_emit("open", { "--hovered" })
 				break
 			else
 				ya.manager_emit("cd", { hovered_url })
+				toggle_ui()
 				clear_state_str()
 			end
 		else
-			clear_state_str()
 			toggle_ui()
+			clear_state_str()
 			break
 		end
-		toggle_ui()
 	end
 end
 
