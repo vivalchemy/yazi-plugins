@@ -25,6 +25,7 @@ for _, label in ipairs(SINGLE_LABLES) do
 	table.insert(INPUT_KEY, label)
 end
 
+table.insert(INPUT_KEY, "x")
 table.insert(INPUT_KEY, "z")
 table.insert(INPUT_KEY, "<Esc>")
 table.insert(INPUT_KEY, "<Backspace>")
@@ -123,6 +124,7 @@ local function read_input_todo(current_num, cursor, offset, first_key_of_lable)
 	local key_num_count = 0
 	local pos
 	local double_key
+	local launch = true
 
 	while true do
 		cand = ya.which({ cands = INPUT_CANDS, silent = true })
@@ -132,11 +134,15 @@ local function read_input_todo(current_num, cursor, offset, first_key_of_lable)
 		end
 
 		if INPUT_KEY[cand] == "<Esc>" or INPUT_KEY[cand] == "z" then
-			return nil, nil
+			return nil, nil, false
 		end
 
 		if INPUT_KEY[cand] == "<Backspace>" and key_num_count == 0 then
-			return "..", "true" -- a hacky way of using cd
+			return "..", "true", true -- a hacky way of using cd
+		end
+
+		if INPUT_KEY[cand] == "x" then
+			launch = false
 		end
 
 		if current_num <= #SINGLE_LABLES then
@@ -147,7 +153,7 @@ local function read_input_todo(current_num, cursor, offset, first_key_of_lable)
 			else
 				ya.manager_emit("arrow", { pos - cursor - 1 + offset })
 				local st = hovered_state()
-				return st.hovered_url, st.is_dir
+				return st.hovered_url, st.is_dir, launch
 			end
 		end
 
@@ -176,7 +182,7 @@ local function read_input_todo(current_num, cursor, offset, first_key_of_lable)
 			else
 				ya.manager_emit("arrow", { pos - cursor - 1 + offset })
 				local st = hovered_state()
-				return st.hovered_url, st.is_dir
+				return st.hovered_url, st.is_dir, launch
 			end
 		end
 
@@ -211,8 +217,8 @@ local function entry(_, _)
 
 		toggle_ui()
 
-		local hovered_url, is_dir = read_input_todo(current_num, cursor, offset, first_key_of_lable)
-		if is_dir then
+		local hovered_url, is_dir, launch = read_input_todo(current_num, cursor, offset, first_key_of_lable)
+		if is_dir and launch then
 			if is_dir == "false" then
 				ya.manager_emit("open", { "--hovered" })
 				break
@@ -221,6 +227,7 @@ local function entry(_, _)
 				clear_state_str()
 			end
 		else
+			clear_state_str()
 			toggle_ui()
 			break
 		end
