@@ -6,6 +6,8 @@ A lightweight and intuitive file navigation plugin for Yazi that allows quick ju
 
 This is a modified version of the original [EasyJump Yazi Plugin](https://gitee.com/DreamMaoMao/easyjump.yazi/) by DreamMaoMao. Special thanks to the original author for their innovative work!
 
+https://github.com/user-attachments/assets/544cf416-ecfc-4a6e-b19c-24a6f6ddc2f9
+
 ## Features
 
 - Quick file navigation using single or double-character labels
