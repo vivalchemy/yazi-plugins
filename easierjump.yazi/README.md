@@ -1,31 +1,73 @@
+# EasierJump Yazi Plugin
 
-## Install
+A lightweight and intuitive file navigation plugin for Yazi that allows quick jumping to files using single or double-character labels.
 
-### Linux
+## Important Note
+
+This is a modified version of the original [EasyJump Yazi Plugin](https://gitee.com/DreamMaoMao/easyjump.yazi/) by DreamMaoMao. Special thanks to the original author for their innovative work!
+
+## Features
+
+- Quick file navigation using single or double-character labels
+- Customizable label colors
+- Simple and intuitive interface
+- Works with both single and multiple file listings
+
+## Installation
+
+### Using ya pack
 
 ```bash
-git clone https://gitee.com/DreamMaoMao/easyjump.yazi.git ~/.config/yazi/plugins/easyjump.yazi
+ya pack -a vivalchemy/yazi-plugins:easierjump
 ```
 
-### Windows
+## Configuration
 
-With `Powershell` :
+### Keymap Setup
 
-```powershell
-if (!(Test-Path $env:APPDATA\yazi\config\plugins\)) {mkdir $env:APPDATA\yazi\config\plugins\}
-git clone https://gitee.com/DreamMaoMao/easyjump.yazi.git $env:APPDATA\yazi\config\plugins\easyjump.yazi
-```
-
-## Usage
-
-set shortcut key to toggle easyjump mode in `~/.config/yazi/keymap.toml`. for example set `i` to toggle easyjump mode
+Add the following to your `~/.config/yazi/keymap.toml` to set a shortcut for toggling EasierJump mode:
 
 ```toml
 [[manager.prepend_keymap]]
 on   = [ "i" ]
-run = "plugin easyjump"
-desc = "easyjump"
+run = "plugin easierjump"
+desc = "easierjump"
 ```
 
-When you see some character(singal character or double character) in left of the entry.
-Press the key of the character will jump to the corresponding entry
+### Customization
+
+You can customize the plugin's appearance in your Yazi `init.lua` configuration file:
+
+```lua
+require("easierjump").setup({
+    icon_fg = "#ffffff",         -- Color of file labels
+    first_key_fg = "#dc143c"     -- Color of first character in double-character labels
+})
+```
+
+## Usage
+
+1. Press the configured shortcut key (e.g., `i`) to activate EasierJump mode
+2. Single-character labels appear for fewer files
+3. Double-character labels appear for more files
+4. Press the corresponding label key to jump to that file
+5. Press `<Esc>` or `z` to exit EasierJump mode
+6. Press `Backspace` to go up a directory
+7. Press `x` to navigate without launching the file
+
+## Original Project
+
+- Original Repository: [EasyJump Yazi Plugin](https://gitee.com/DreamMaoMao/easyjump.yazi/)
+- Original Author: DreamMaoMao
+
+## License
+
+This project is licensed under the [MIT License](LICENSE)
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## Acknowledgments
+
+A big thank you to DreamMaoMao for the original EasyJump plugin that inspired this modification.
