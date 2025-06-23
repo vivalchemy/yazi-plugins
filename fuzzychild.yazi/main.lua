@@ -13,7 +13,7 @@ local function entry()
 
 	-- First, try to get the git root directory
 	-- local git_child, err =
-	-- 	Command("git"):args({ "rev-parse", "--show-toplevel" }):stdout(Command.PIPED):stderr(Command.NULL):spawn()
+	-- 	Command("git"):arg({ "rev-parse", "--show-toplevel" }):stdout(Command.PIPED):stderr(Command.NULL):spawn()
 
 	local root_dir = st.cwd -- Default to current working directory
 
@@ -27,7 +27,7 @@ local function entry()
 	-- end
 
 	local fd_child, err =
-		Command("fd"):args({ ".", "--type=directory" }):arg(root_dir):stdout(Command.PIPED):stderr(Command.NULL):spawn()
+		Command("fd"):arg({ ".", "--type=directory" }):arg(root_dir):stdout(Command.PIPED):stderr(Command.NULL):spawn()
 
 	if not fd_child then
 		return fail("Failed to start `fd`, error: " .. err)
